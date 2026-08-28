@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "Site": {
+      "title": "Site",
+      "description": "Historical and cultural heritage site or 360 virtual tour in Tindouf Cultural Park",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["natural", "rock_art", "architectural", "archaeological"] },
+        "categoryNameAr": { "type": "string" },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "locationName": { "type": "string" },
+        "era": { "type": "string" },
+        "status": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "panoUrl": { "type": "string" },
+        "highlights": { "type": "array", "items": { "type": "string" } },
+        "virtualTourDuration": { "type": "string" },
+        "viewsCount": { "type": "number" },
+        "featured": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "panoUrl", "category"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Inquiries, research permits, and media requests submitted to the Tindouf Cultural Park office",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "type": { "type": "string", "enum": ["general", "research", "visit_permit", "media"] },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "subject", "message"]
+    }
+  },
+  "firestore": {
+    "/sites/{siteId}": {
+      "schema": "Site",
+      "description": "All indexed heritage sites and 360 tours"
+    },
+    "/contact_messages/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Public research permit requests and messages"
+    }
+  }
+}

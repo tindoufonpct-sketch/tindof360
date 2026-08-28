@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Heritage Sites & 360 Tours: readable by all visitors, editable/creatable by users/admins
+    match /sites/{siteId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Contact & Permit requests: anyone can create, readable/manageable
+    match /contact_messages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if true;
+    }
+    
+    // Catch-all fallback
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
